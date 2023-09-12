@@ -1,5 +1,5 @@
 /**
- * @(#)Ex22.java
+ * @(#)Ex23.java
  *
  *
  * @author 
@@ -10,11 +10,14 @@
 public class Ex23 {
 
     public static void main(String args[]){
-    	
-	Retangulo ret = new Retangulo();
-	
-	ret.exibeArea();
+    Retangulo ret = new Retangulo(2,3);	
+    ret.exibeArea();
 	ret.exibePerimetro();
+
+    	
+	Retangulo ret2 = new Retangulo();
+	ret2.exibeArea();
+	ret2.exibePerimetro();
     }
     
     

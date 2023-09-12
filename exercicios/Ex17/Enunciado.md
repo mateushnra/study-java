@@ -1,0 +1,1 @@
+Desenvolva um programa que leia através do teclado um vetor de 10 valores inteiros e exiba a soma de todos os seus elementos.

@@ -1,0 +1,1 @@
+Desenvolva um programa que calcule e exiba o preço de venda de um produto qualquer cujo preço de custo é R$ 37.00 com uma percentagem para o vendedor de 12% e impostos de 26.95%, sabendo que o preço de venda é dado pelo preço de fábrica, ao qual é adicionado o lucro do vendedor e os impostos (ambos aplicados ao custo de fábrica).

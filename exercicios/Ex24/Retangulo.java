@@ -6,7 +6,6 @@
  * @version 1.00 2023/8/28
  */
 
-import javax.swing.JOptionPane;
 
 public class Retangulo {
 
@@ -14,13 +13,10 @@ public class Retangulo {
 		private float Base, Altura;
 		
 	public Retangulo(){
-		this.Base = Float.parseFloat(JOptionPane.showInputDialog(null, "Informe a base: "));
-		this.Altura = Float.parseFloat(JOptionPane.showInputDialog(null, "Informe a altura: "));
-		
 	}
 	
 	public Retangulo(float b, float a) {
-	    	this.Base = b; this.Altura = a;
+	    this.Base = b; this.Altura = a;
 	}
 	    
 	public void setBase(Float b){

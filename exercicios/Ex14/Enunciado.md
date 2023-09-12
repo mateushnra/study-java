@@ -1,0 +1,1 @@
+Desenvolva um programa que exiba todos os números divisíveis por 3 e 4 entre 1 a 1000.

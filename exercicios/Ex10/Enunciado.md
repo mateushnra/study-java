@@ -1,0 +1,1 @@
+Desenvolva um programa que calcule a média aritmética e exiba o resultado para as seguintes notas: nota 1 = 5.0, nota 2 = 3.5 e nota 3 = 9.5. Obs. crie as variáveis e faça as atribuições necessárias.

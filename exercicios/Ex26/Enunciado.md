@@ -1,0 +1,1 @@
+Implemente uma segunda versão para o exercício anterior alterando a classe **Principal** de forma a permitir que o usuário possa fornecer os números para o cálculo do valor (defina um laço na função **main** para permitir que o usuário decida quando finalizar a entrada dos números).

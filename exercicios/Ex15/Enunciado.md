@@ -1,0 +1,1 @@
+Desenvolva um programa que some todos os números divisíveis por 2,5 e 7 ao mesmo tempo de 1 a 1000 e exiba o resultado.

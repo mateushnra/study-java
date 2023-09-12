@@ -1,0 +1,1 @@
+Desenvolva um programa que inverta a frase (as letras) do exercício anterior (primeira letra passa ser a última, e assim sucessivamente) e exiba-a novamente.
