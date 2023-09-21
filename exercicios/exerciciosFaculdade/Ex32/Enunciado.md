@@ -1,0 +1,9 @@
+Defina uma classe **Empregado** que possua como atributos o **numero** e o **nome** estes valores devem ser fornecidos pelo usuário no método construtor. Implemente os métodos **numero_funcional** (que retorna o atributo **numero**) e **nome_do_funcionario** (que retorna o atributo **nome**).
+
+Defina uma classe **Vendedor** como uma subclasse da classe **Empregado** que possui como atributos **salario_base**, **valor_vendas_mes** (que armazena o valor de todas as vendas realizadas no mês) **perc_comissao** (que armazena a percentagem da comissão do vendedor), estes valores devem ser fornecidos pelo usuário no método construtor (obs.: antes de pedir a digitação destes valores chame o método construtor da superclasse). Implemente o método **valor_do_salario** que calculará e retornará o valor do salário no mês (salario_base + valor_vendas_mês*perc_comissao).
+
+Defina uma classe **Gerente** como uma subclasse da classe **Empregado** que possui como atributo **salario_mensal** (este valor deve ser fornecido pelo usuário no método construtor - obs.: antes faça a chamada o método construtor da superclasse). Implemente o método **valor_do_salario** que retornará o valor do salário no mês.
+
+Defina uma classe **Horista** como uma subclasse da classe **Empregado** que possui como atributo **valor_hora** e **horas_trabalhadas** (estes valores devem ser fornecidos pelo usuário no método construtor - obs.: antes faça a chamada do método construtor da superclasse). Implemente o método **valor_do_salario** que calculará e retornará o valor do salário no mês.
+
+Na classe **Principal**, defina o método **main** declarando três objetos *e1*, *e2*, *e3* da classe **Empregado**, instancie o *e1* como **Vendedor**, *e2* como **Gerente** e *e3* como **Horista**. Exiba o número e o nome e o valor do salário do empregado que possuir o maior salário.
