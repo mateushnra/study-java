@@ -58,7 +58,7 @@ public class content {
     	
     	int numero = 5;
     	float float1 = 3.14f //Deve ser escrito f no final de um numero ponto flutuante
-    	char char1 = "c", char2 = 'c'; //Aspas simples ou dupla para declaração de char
+    	char char1 = 'c'; //Aspas simples apenas, sendo aspas duplas para String
     	boolean bool = true, bool2 = false; 
     }
     
@@ -99,7 +99,7 @@ public class content {
     public static void ifSwitchWhileFor(){
     	int x = 1, y = 2; boolean teste = true;
     	
-    	// O conteúdo do if e de outros como while, for não necessita de {} em caso de o corpo seja apenas 1 linha
+    	// O conteúdo do if e de outros como while e for não necessita de {} em caso de que o corpo seja apenas 1 linha
     	if(x == 1){
     		x++;
     	} //Funciona
@@ -155,5 +155,23 @@ public class content {
     		y++;//Corpo do código executado a cada looping
     	}
     	
+    }
+   
+//Vetor e matriz
+    public static void vetorMatriz(){
+    	//VETOR
+    	int[] vet = new int [3];//Declarando um vetor do tipo inteiro
+    	int vet[] = new int [3];//A ordem do primeiro [] não importa, ou seja, pode ser ao lado do int ou do vet
+    	
+    	int tam = 3;//Declarando uma variavel para controle de tamanho do vetor
+      	int[] vet = new int[tam];//Declarando o vetor com tamanho correspondente a variavel de controle
+      	
+      	int[] vet = {3,2,5,1,7};//Declarando os valores diretamente na inicialização do vetor
+    	
+    	//MATRIZ
+    	int[][] mat = new int[3][5];
+    	int mat[][] = new int[3][5];
+    	
+    	int[][] mat = {{1,2}, {3,4}, {5,6}};
     }
 }
