@@ -57,7 +57,8 @@ public class content {
     	//Declaração de valores em variáveis
     	
     	int numero = 5;
-    	float float1 = 3.14f //Deve ser escrito f no final de um numero ponto flutuante
+    	float float1 = 3.14f //Deve ser escrito f no final de um numero ponto flutuante float
+    	double float1 = 3.14d //Deve ser escrito d no final de um numero ponto flutuante double
     	char char1 = 'c'; //Aspas simples apenas, sendo aspas duplas para String
     	boolean bool = true, bool2 = false; 
     }
@@ -173,5 +174,206 @@ public class content {
     	int mat[][] = new int[3][5];
     	
     	int[][] mat = {{1,2}, {3,4}, {5,6}};
+    	
+    	//LENGTH
+    	vet.length; //Retorna a quantidade de posições do vetor
+    	mat.length; //Retorna a quantidade de vetores dentro da matriz	
     }
+    
+//Strings
+	public static void string(){
+		//Uma variavel String é um objeto da classe String
+		String nome = "Sou uma string";//Declaração de uma string
+		String nome = new String("Sou uma string");//Declaração de uma string de outra forma, instanciando o objeto chamando o construtor
+		
+		//Concatenação
+		String str1 = "Olá";
+		String str2 = " Mundo!";
+		String str1+= str2;//Saída = "Olá Mundo!"
+		
+		//Length para string
+		str1.length();//Retorna a quantidade caracteres que existe na string, precisa ter o (), pois é um método da classe String
+		
+		//CharAt
+		str1.charAt(0);//Retorna um valor char referente a respectiva posição da String, com indices semelhantes a um vetor, sendo 0 a primeira posição.
+		
+		//substring
+		str1 = str1.substring(0,2);//Pega da string desde a posição 0 até a segunda posição - 1, ou seja, como ali é 2, será exibido 0 e 1 apenas, sendo a saida = "Ol"
+		
+		//Upper Case e Lower Case
+		str1 = str1.toUpperCase();//Deixa tudo em maiúsculo
+		str1 = str1.toLowerCase();//Deixa tudo minúsculo
+		
+		//IndexOf
+		str1.indexOf("Ol");//Retorna a posição da primeira letra da string digitada, se houver mais de uma sequência semelhante a Ol na string ele pegará a primeira. Caso digite uma sequência não existente na String, uma letra maiscula em vez de minuscula ou um caracter não existente, será retornado -1
+		
+		//Equals
+		str1.equals("Olá");//Retorna um boolean caso a string seja igual ao valor digitado, considerando que é case Sensitive. Nesse caso retornaria true
+		
+		//String Value
+		//Retorna uma String do valor númerico digitado
+		String.valueOf(3);
+		String.valueOf(1.39131412d);
+		
+		//Conversão de um valor em string para numerico ou boolean
+		boolean bool; int inteiro, float flutuante;
+		
+		bool = Boolean.parseBoolean("true");
+		inteiro = Integer.parseInt("3");
+		flutuante = Float.parseFloat("3.14");
+	}	
+		
+//Biblioteca de input de dados JOptionPane
+import javax.swing.JOptionPane;//Importa a biblioteca no inicio do programa
+
+	public static void inputDados(){
+		String inputText
+		short inputNum;
+		
+		//O método de input sempre recebe um valor String, portanto caso deseje receber um valor numerico deve ser convertido o numero em string para o respectivo tipo
+		inputText = JOptionPane.showInputDialog(null, "Informe o texto para armazenar na variavel inputText: ");
+		inputNum = Short.parseShort(JOptionPane.showInputDialog(null, "Informe um numero para ser convertido em short e armazenado na variavel inputNum: "));
+		
+		//Para apenas exibir uma mensagem utilize o seguinte comando da biblioteca
+		JOptionPane.showMessageDialog(null, "Mensagem a ser exibida!");
+	}
+
+//Classe, atributos, encapsulamento, construtor, métodos e sobrecarga
+	public static void classeAtributosEncapsulamentoConstrutorMetodos(){
+		public class NomeClasse {//Criando uma classe
+			
+			//Atributos da classe podem ser private(só a propria classe acessa), public(Qualquer lugar acessa) e protected(apenas a propria classe e classes filhas podem acessar)
+			private float num;//Atributo da classe do tipo float
+			private String texto;//Atributo da classe do tipo String
+			protected boolean teste;//Atributo da classe do tipo boolean
+			
+			//Construtor deve ser apenas public e o nome da Classe identicamente ao declarado acima, é possível passar parametros ou inicializar variaveis diretamente dentro do escopo do código sem passar nada
+			public NomeClasse(float a, String txt){
+				this.num = a;
+				this.texto = txt;
+				this.teste = true;
+			}
+			
+			//Sobrecarga do construtor
+			public NomeClasse(float a){//A sobrecarga se da pela criação de dois métodos com nomes identicos, mudando assim os parametros que receberão, portanto ao chamar o método qual será chamado é identificado pelos parametros diferentes e os valores respectivos passados
+				this.num = a;
+				this.texto = "texto";
+				this.teste = true;
+			}
+			
+			//Métodos em uma classe
+			
+			//O método do tipo void executa o que esta dentro e não retorna nada
+			public void metodoVazio(){
+				
+			}
+			
+			//retorna um valor do tipo String
+			public String metodoString(){
+				return "String";
+			}
+			
+			//retorna um valor do tipo float
+			public float metodoFloat(){
+				return 3.1231f;
+			}
+		}
+	}
+	
+//Herança, Polimorfismo, Agregação, Abstração
+	public static void herancaPolimorfismoAgregacaoAbstracao(){
+		public abstract class ClasseAbstrataPai{//Declaração de uma classe Abstrata é indicada com abstract, assim, ela apenas serve para passar métodos e atributos, não podendo ser instanciada.
+			protected String cpf;
+			
+			public ClasseAbstrataPai(){
+				cpf = "113.123.123-23";
+			}
+			
+			public abstract void metodoAbstrato();//O método comum as classes filhas é declarada aqui na classe abstrata sem nenhuma implementação, porém na classe filha é modificado.
+		}
+		
+		public class ClasseConcretaFilha extends ClasseAbstrataPai{
+			protected String rg;
+			
+			public ClasseConcretaFilha(){
+				super();
+				rg = "13123123-23";
+			}
+			
+			public void metodoAbstrato(){//Método abstrato sendo executado!
+				System.out.println("Seu rg é: " + this.rg + ". Seu cpf é: " + super.cpf);
+			}
+		}
+		
+		public class SuperClasse{
+			protected String nome;
+			protected short idade;
+			protected ClasseConcretaFilha objetoAgregado;//declara a existencia de um atributo que é um objeto de outra classe, assim poderá futuramente acessar seus métodos através desse objeto
+			
+			public SuperClasse(String nome){
+				this.nome = nome;
+				idade = 18;//Funciona sem o this também, desde que o nome esteja correto e não haja conflito de variavel identica
+				objetoAgregado = new ClasseConcretaFilha();//Instancia o objeto, assim fazendo que seja executado o conceito de agregação
+			}
+			
+			public void metodoPolimorfismo(){
+				idade += 2;//Codigo qualquer
+			}
+		}
+		
+		public class ClasseFilha1 extends SuperClasse{//O extends indica que esta classe esta herdando a classe SuperClasse
+			private float salario;
+			
+			public ClasseFilha1(String nome, float salario){//Além do atributo da propria classe, caso no construtor da classe pai haja parametros, é necessário coloca-lo na ordem
+				super();//Chama o método construtor da classe pai, assim gerando os valores nome e idade
+				this.salario = salario;
+			}
+			
+			public void metodoPolimorfismo(){//método passa por um polimorfismo, pois a classe pai já tem uma execução definida para o método, porém a filha altera e chama de um jeito diferente
+				idade += 3;
+			}
+		}
+		
+		public class ClasseFilha2 extends SuperClasse{//Outra classe filha para comparação
+			private float comissao;
+			
+			public ClasseFilha2(float com){
+				comissao = com;	
+			}
+			
+			//Método existente na classe pai, porém o código da filha é diferente tanto da outra classe filha como da pai.
+			public void metodoPolimorfismo(){
+				idade -= 3;
+			}
+		}
+		
+		//Simulando o programa main onde será executado e instanciado as classes
+		public static void main(){
+			ClasseFilha1 c1 = new ClasseFilha1(); //Cria uma variavel objeto da classe ClasseFilha1, e instancia como ClasseFilha1(), portanto o correto seria falar que não há polimorfismo aqui
+			SuperClasse c2 = new ClasseFilha(); // Agora aqui existe polimorfismo, pois esta sendo criado um objeto da SuperClasse, porém sendo instanciado como ClasseFilha, portanto qualquer modificação de um método da SuperClasse será executado de acordo com a filha.
+			
+			c2.metodoPolimorfismo();//Chama o método da classe pai, porém sendo modificado pela filha através do polimorfismo
+			c1.metodoPolimorfismo();//Chama o método da classe filha diretamente, portatno não é exatamente um polimorfismo
+		}
+	}
+	
+//Tratamento de erro
+	public static void tratamentoErro(){
+		String txt = null;//Declarar uma String nula
+		
+        try{//Neste bloco caso o que seja executado gere algum erro, ele irá procurar a exceção do erro nos catch abaixo.
+  			txt = txt.toUpperCase();//vai dar erro, pois não tem como transformar em upper case algo nulo	
+		}catch(ArithmeticException e){//Esse catch procura um erro de aritmetica, porém não se trata desse erro o listado acima, caso fosse, seria executado o bloco abaixo
+			System.out.println("Erro aritmetico");
+		}catch(Exception e){//Esse catch pega qualquer erro, como não é o erro de cima, então cairá nesse, que alterará o texto para algo valido
+			txt = "Correcao do erro";
+		}finally{//O finally é executado independentemente se houve erro ou não, porém é executado por último, após o try ou catch.
+			System.out.println(txt);
+		}
+	}
 }
+
+
+
+
+
