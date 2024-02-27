@@ -1,0 +1,1 @@
+INDEX VERSION 1.134+C:\Users\lab-06\eclipse-workspace\Projetos\Agenda2024DB\.metadata\.plugins\org.eclipse.jdt.core
