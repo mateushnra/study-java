@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.ResultSet;
 
 import modelo.Grupo;
 import modelo.jdbc.ConnectionFactory;
@@ -50,15 +51,76 @@ public class GrupoDAO {
 	}
 	
 	public void atualizar(Grupo grupo) {
-		
+		try {
+			Connection conexao = new ConnectionFactory().getConnection();
+			
+			String sql = "UPDATE grupo SET nome = ?, descricao = ? WHERE codigo = ?";
+			
+			PreparedStatement pstmt = conexao.prepareStatement(sql);
+			
+			pstmt.setString(1,  grupo.getNome());
+			pstmt.setString(2, grupo.getDescricao());
+			pstmt.setInt(3, grupo.getCodigo());
+			
+			pstmt.execute();
+			
+			pstmt.close();
+			conexao.close();
+		}catch(SQLException e) {
+			//e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public void excluir(int codigo) {
-		
+		try {
+			Connection conexao = new ConnectionFactory().getConnection();
+			
+			String sql = "DELETE FROM grupo WHERE codigo = ?";
+			
+			PreparedStatement pstmt = conexao.prepareStatement(sql);
+			
+			pstmt.setInt(1, codigo);
+			
+			pstmt.execute();
+			
+			pstmt.close();
+			conexao.close();
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public Grupo pesquisarPorCodigo(int codigo) {
-		return null;
+		Grupo grupoResult = null;
+		
+		try {
+			Connection conexao = new ConnectionFactory().getConnection();
+			
+			String sql = "SELECT nome, descricao FROM grupo WHERE codigo = ?";
+			
+			PreparedStatement pstmt = conexao.prepareStatement(sql);
+			
+			pstmt.setInt(1, codigo);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+            if(rs.next()) {
+            	grupoResult = new Grupo();
+            	
+            	grupoResult.setCodigo(codigo);
+    			grupoResult.setDescricao(rs.getString("descricao"));
+    			grupoResult.setNome(rs.getString("nome"));
+            }
+			
+			rs.close();
+			pstmt.close();
+			conexao.close();
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return grupoResult;
 	}
 	
 	public ArrayList<Grupo> pesquisarTodos(){
