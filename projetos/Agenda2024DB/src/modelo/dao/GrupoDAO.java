@@ -124,6 +124,34 @@ public class GrupoDAO {
 	}
 	
 	public ArrayList<Grupo> pesquisarTodos(){
-		return null;
+		ArrayList<Grupo> grupos = new ArrayList<>();
+		
+		try {
+			Connection conexao = new ConnectionFactory().getConnection();
+			
+			String sql = "SELECT codigo, nome, descricao FROM grupo";
+			
+			PreparedStatement pstmt = conexao.prepareStatement(sql);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Grupo grupo = new Grupo();
+            
+            	grupo.setCodigo(rs.getInt("codigo"));
+    			grupo.setDescricao(rs.getString("descricao"));
+    			grupo.setNome(rs.getString("nome"));
+    			
+    			grupos.add(grupo);
+			}
+        
+			rs.close();
+			pstmt.close();
+			conexao.close();
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return grupos;
 	}
 }
