@@ -25,6 +25,7 @@ public class frmCadServico extends JFrame {
 	private JTextField edtCodigo;
 	private JTextField edtNome;
 	private JTextField edtValor;
+	private int Acao;
 	private bd objDB = null;
 
 	/**
@@ -49,6 +50,9 @@ public class frmCadServico extends JFrame {
 	public frmCadServico() {
 		
 		this.objDB = new bd("jccar", "root", "root");
+		
+		handleAction handleButton = new handleAction();
+		
 		
 		setTitle("Cadastro De Serviços");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,6 +110,7 @@ public class frmCadServico extends JFrame {
 		contentPane.add(btnCancelar);
 		
 		JButton btnGravar = new JButton("Gravar");
+	
 		btnGravar.setEnabled(false);
 		btnGravar.setBounds(273, 147, 68, 23);
 		contentPane.add(btnGravar);
@@ -114,6 +119,8 @@ public class frmCadServico extends JFrame {
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBounds(351, 147, 69, 23);
 		contentPane.add(btnExcluir);
+		btnExcluir.addActionListener(handleButton);
+		
 		
 		btnIncluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,6 +128,8 @@ public class frmCadServico extends JFrame {
 				btnAlterar.setEnabled(true);
 				btnCancelar.setEnabled(true);
 				btnGravar.setEnabled(true);
+				
+				Acao = 1;
 			}
 		});
 		
@@ -131,13 +140,41 @@ public class frmCadServico extends JFrame {
 				btnCancelar.setEnabled(true);
 				btnGravar.setEnabled(true);
 				btnExcluir.setEnabled(false);
+				
+				Acao = 2;
+			}
+		});
+		
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String sql, Mensagem;
+				if(Acao == 1) {
+					sql = "INSERT INTO servicos(nomeservico, valorservico) VALUES ('" + edtNome.getText().toString() + "', '"+ edtValor.getText().toString() + "')";
+					Mensagem = "Serviço incluído com sucesso!";
+				}else {
+					sql = "UPDATE servicos SET nomeservico = '" + edtNome.getText().toString() + "', valorservico = " + edtValor.getText().toString() + " WHERE idservico = " + edtCodigo.getText().toString();
+					Mensagem = "Serviço Atualizado com sucesso!";
+				}
+				
+				try {
+					if(!objDB.conectaBD()) {
+						if(!objDB.Atualizar(sql)) {
+							edtCodigo.setText("");
+							edtNome.setText("");
+							edtValor.setText("");
+							JOptionPane.showMessageDialog(null, Mensagem);
+						}
+					}
+				}catch(HeadlessException | ClassNotFoundException error) {
+					System.out.println(error);
+				}
 			}
 		});
 		
 		edtCodigo.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(!edtCodigo.getText().toString().equals("")) {
+				if(!edtCodigo.getText().equals("")) {
 					String sqlQuery = "select * from servicos where idServico = " + edtCodigo.getText().toString();
 					try {
 						if(!objDB.conectaBD()) {
@@ -146,6 +183,10 @@ public class frmCadServico extends JFrame {
 								edtCodigo.setText(objRes.getString(1));
 								edtNome.setText(objRes.getString(2));
 								edtValor.setText(objRes.getString(3));
+								btnAlterar.setEnabled(true);
+								btnCancelar.setEnabled(true);
+								btnGravar.setEnabled(true);
+								btnExcluir.setEnabled(true);
 							}else {
 								JOptionPane.showMessageDialog(null, "Serviço não cadatrado!");
 								edtCodigo.setText("");
@@ -172,5 +213,11 @@ public class frmCadServico extends JFrame {
 				}
 			}
 		});
+	}
+	
+	class handleAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(e.getSource());
+		}
 	}
 }
