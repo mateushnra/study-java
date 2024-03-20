@@ -25,6 +25,11 @@ public class frmCadServico extends JFrame {
 	private JTextField edtCodigo;
 	private JTextField edtNome;
 	private JTextField edtValor;
+	private JButton btnIncluir;
+	private JButton btnAlterar;
+	private JButton btnCancelar;
+	private JButton btnGravar;
+	private JButton btnExcluir;
 	private int Acao;
 	private bd objDB = null;
 
@@ -91,85 +96,34 @@ public class frmCadServico extends JFrame {
 		contentPane.add(edtValor);
 		edtValor.setColumns(10);
 		
-		JButton btnIncluir = new JButton("Incluir");
+		btnIncluir = new JButton("Incluir");
 		btnIncluir.setBounds(13, 147, 69, 23);
+		btnIncluir.addActionListener(handleButton);
 		contentPane.add(btnIncluir);
 		
-		JButton btnAlterar = new JButton("Alterar");
+		btnAlterar = new JButton("Alterar");
 		btnAlterar.setEnabled(false);
 		btnAlterar.setBounds(95, 147, 76, 23);
+		btnAlterar.addActionListener(handleButton);
 		contentPane.add(btnAlterar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(handleButton);
 		btnCancelar.setEnabled(false);
 		btnCancelar.setBounds(184, 147, 76, 23);
 		contentPane.add(btnCancelar);
 		
-		JButton btnGravar = new JButton("Gravar");
-	
+		btnGravar = new JButton("Gravar");
+		btnGravar.addActionListener(handleButton);
 		btnGravar.setEnabled(false);
 		btnGravar.setBounds(273, 147, 68, 23);
 		contentPane.add(btnGravar);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.setEnabled(false);
 		btnExcluir.setBounds(351, 147, 69, 23);
-		contentPane.add(btnExcluir);
 		btnExcluir.addActionListener(handleButton);
-		
-		
-		btnIncluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnIncluir.setEnabled(false);
-				btnAlterar.setEnabled(true);
-				btnCancelar.setEnabled(true);
-				btnGravar.setEnabled(true);
-				
-				Acao = 1;
-			}
-		});
-		
-		btnAlterar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnIncluir.setEnabled(false);
-				btnAlterar.setEnabled(false);
-				btnCancelar.setEnabled(true);
-				btnGravar.setEnabled(true);
-				btnExcluir.setEnabled(false);
-				
-				Acao = 2;
-			}
-		});
-		
-		btnGravar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String sql, Mensagem;
-				if(Acao == 1) {
-					sql = "INSERT INTO servicos(nomeservico, valorservico) VALUES ('" + edtNome.getText().toString() + "', '"+ edtValor.getText().toString() + "')";
-					Mensagem = "Serviço incluído com sucesso!";
-				}else {
-					sql = "UPDATE servicos SET nomeservico = '" + edtNome.getText().toString() + "', valorservico = " + edtValor.getText().toString() + " WHERE idservico = " + edtCodigo.getText().toString();
-					Mensagem = "Serviço Atualizado com sucesso!";
-				}
-				
-				try {
-					if(!objDB.conectaBD()) {
-						if(!objDB.Atualizar(sql)) {
-							edtCodigo.setText("");
-							edtNome.setText("");
-							edtValor.setText("");
-							JOptionPane.showMessageDialog(null, Mensagem);
-						}
-					}
-				}catch(HeadlessException | ClassNotFoundException error) {
-					System.out.println(error);
-				}
-			}
-		});
+		contentPane.add(btnExcluir);
 		
 		edtCodigo.addFocusListener(new FocusAdapter() {
 			@Override
@@ -206,18 +160,91 @@ public class frmCadServico extends JFrame {
 						JOptionPane.showMessageDialog(null, objDB.Mensagem());
 					}
 					
-				}else {
-					JOptionPane.showMessageDialog(null, "Serviço não cadatrado!");
-					edtCodigo.setText("");
-					edtCodigo.requestFocus();
 				}
 			}
 		});
+		
 	}
 	
 	class handleAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			System.out.println(e.getSource());
+			
+			JButton btn = (JButton) e.getSource();
+
+			if(btn.equals(btnIncluir)) {
+				btnIncluir.setEnabled(false);
+				btnAlterar.setEnabled(true);
+				btnCancelar.setEnabled(true);
+				btnGravar.setEnabled(true);
+				
+				Acao = 1;
+			}else if(btn.equals(btnAlterar)){
+				btnIncluir.setEnabled(false);
+				btnAlterar.setEnabled(false);
+				btnCancelar.setEnabled(true);
+				btnGravar.setEnabled(true);
+				btnExcluir.setEnabled(false);
+				
+				Acao = 2;
+			}else if(btn.equals(btnGravar)) {
+				String sql, Mensagem;
+				if(Acao == 1) {
+					sql = "INSERT INTO servicos(nomeservico, valorservico) VALUES ('" + edtNome.getText().toString() + "', '"+ edtValor.getText().toString() + "')";
+					Mensagem = "Serviço incluído com sucesso!";
+				}else {
+					sql = "UPDATE servicos SET nomeservico = '" + edtNome.getText().toString() + "', valorservico = " + edtValor.getText().toString() + " WHERE idservico = " + edtCodigo.getText().toString();
+					Mensagem = "Serviço Atualizado com sucesso!";
+				}
+				
+				try {
+					if(!objDB.conectaBD()) {
+						if(!objDB.Atualizar(sql)) {
+							edtCodigo.setText("");
+							edtNome.setText("");
+							edtValor.setText("");
+							btnIncluir.setEnabled(true);
+							btnAlterar.setEnabled(false);
+							btnCancelar.setEnabled(false);
+							btnGravar.setEnabled(false);
+							btnExcluir.setEnabled(false);
+							JOptionPane.showMessageDialog(null, Mensagem);
+						}
+					}
+				}catch(HeadlessException | ClassNotFoundException error) {
+					System.out.println(error);
+				}
+			}else if(btn.equals(btnCancelar)) {
+				btnIncluir.setEnabled(true);
+				btnAlterar.setEnabled(false);
+				btnCancelar.setEnabled(false);
+				btnGravar.setEnabled(false);
+				btnExcluir.setEnabled(false);
+			}else if(btn.equals(btnExcluir)) {
+				String sql, Mensagem;
+		
+				sql = "DELETE FROM servicos WHERE idservico = '"  + edtCodigo.getText().toString() + "'";
+				Mensagem = "Serviço excluído com sucesso!";
+				
+				
+				try {
+					if(!objDB.conectaBD()) {
+						if(!objDB.Atualizar(sql)) {
+							edtCodigo.setText("");
+							edtNome.setText("");
+							edtValor.setText("");
+							btnIncluir.setEnabled(true);
+							btnAlterar.setEnabled(false);
+							btnCancelar.setEnabled(false);
+							btnGravar.setEnabled(false);
+							btnExcluir.setEnabled(false);
+							JOptionPane.showMessageDialog(null, Mensagem);
+						}
+					}
+				}catch(HeadlessException | ClassNotFoundException error) {
+					System.out.println(error);
+				}
+			}
+			
 		}
 	}
 }
